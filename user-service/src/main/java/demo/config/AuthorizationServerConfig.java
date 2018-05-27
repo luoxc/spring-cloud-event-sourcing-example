@@ -33,7 +33,8 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .permitAll()
                 .and()
-                .csrf().disable();
+                .csrf()
+                .disable();
     }
 
     @Configuration
