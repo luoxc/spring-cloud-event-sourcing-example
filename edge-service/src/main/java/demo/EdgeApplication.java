@@ -28,4 +28,5 @@ public class EdgeApplication {
             http.csrf().disable();
         }
     }
+    
 }

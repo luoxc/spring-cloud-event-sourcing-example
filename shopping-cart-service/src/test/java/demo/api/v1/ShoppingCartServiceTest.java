@@ -10,8 +10,7 @@ import demo.user.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.Assert;
@@ -21,9 +20,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = ShoppingCartApplication.class)
+@SpringBootTest(classes = ShoppingCartApplication.class)
 @ActiveProfiles(profiles = "test")
-@WebIntegrationTest
 public class ShoppingCartServiceTest {
 
     @Autowired
@@ -48,7 +46,7 @@ public class ShoppingCartServiceTest {
         catalog.setProducts(products);
 
         ShoppingCart shoppingCart = shoppingCartService.aggregateCartEvents(new User(0L), catalog);
-        Assert.notNull(shoppingCart);
-        Assert.notEmpty(shoppingCart.getLineItems());
+        Assert.notNull(shoppingCart, "shopping cart is null.");
+        Assert.notEmpty(shoppingCart.getLineItems(), "shopping cart line items is empty.");
     }
 }

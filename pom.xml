@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-	<version>1.5.13.RELEASE</version>
+        <version>1.5.13.RELEASE</version>
         <relativePath/>
     </parent>
 
@@ -34,7 +34,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
-        <docker.image.prefix>kbastani</docker.image.prefix>
+        <docker.image.prefix>fantuan</docker.image.prefix>
         <docker.plugin.version>0.3.258</docker.plugin.version>
     </properties>
 
@@ -53,6 +53,11 @@
                 <version>Edgware.SR3</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.16.20</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

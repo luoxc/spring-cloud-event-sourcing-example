@@ -23,14 +23,14 @@ public class UserControllerV1 {
     }
 
     @RequestMapping(path = "/me")
-    public ResponseEntity me(Principal principal) {
+    public ResponseEntity<User> me(Principal principal) {
         User user = null;
-        if(principal != null) {
+        if (principal != null) {
             user = userService.getUserByUsername(principal.getName());
         }
 
         return Optional.ofNullable(user)
-                .map(a -> new ResponseEntity<User>(a, HttpStatus.OK))
+                .map(a -> new ResponseEntity(a, HttpStatus.OK))
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
     }
 }
