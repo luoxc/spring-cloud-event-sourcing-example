@@ -11,9 +11,9 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableEurekaClient
 @EnableHystrix
-public class CatalogServiceApplication {
+public class CatalogApplication {
     public static void main(String[] args) {
-        SpringApplication.run(CatalogServiceApplication.class, args);
+        SpringApplication.run(CatalogApplication.class, args);
     }
 
     @LoadBalanced
