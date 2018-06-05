@@ -11,18 +11,18 @@ zuul:
   routes:
     edge-service:
       path: /api/**
-      url: http://localhost:9999
+      url: http://api.fantuan.io:9999
     auth-service:
       path: /user/**
-      url: http://localhost:8181/uaa/user
+      url: http://auth.fantuan.io:8181/uaa/user
 security:
   enable-csrf: false
   oauth2:
     resource:
-      userInfoUri: http://localhost:8181/uaa/user
+      userInfoUri: http://auth.fantuan.io:8181/uaa/user
     client:
-      accessTokenUri: http://localhost:8181/uaa/oauth/token
-      userAuthorizationUri: http://localhost:8181/uaa/oauth/authorize
+      accessTokenUri: http://auth.fantuan.io:8181/uaa/oauth/token
+      userAuthorizationUri: http://auth.fantuan.io:8181/uaa/oauth/authorize
       clientId: acme
       clientSecret: acmesecret
   ignored: /assets/**

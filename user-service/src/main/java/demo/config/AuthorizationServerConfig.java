@@ -1,10 +1,13 @@
 package demo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.security.oauth2.common.AuthenticationScheme;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -14,6 +17,9 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        OAuth2RestTemplate b;
+        AuthenticationScheme s;
+        UserInfoTokenServices a;
         auth
                 .inMemoryAuthentication()
                 .withUser("user").password("password").roles("USER");
@@ -44,10 +50,14 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
         @Override
         public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
             clients.inMemory()
+                    // client_id
                     .withClient("acme")
+                    // client_secret
                     .secret("acmesecret")
-                    .authorizedGrantTypes("authorization_code", "refresh_token",
-                            "password").scopes("openid");
+                    // grant_type: 该client允许的授权类型
+                    .authorizedGrantTypes("authorization_code", "refresh_token", "password", "form")
+                    // 允许的授权范围
+                    .scopes("openid");
         }
     }
 }

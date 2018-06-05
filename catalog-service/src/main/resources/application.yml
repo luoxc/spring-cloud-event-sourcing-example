@@ -5,13 +5,34 @@ spring:
 spring:
   profiles: development
   redis:
-    host: localhost
+    host: redis.fantuan.io
     port: 6379
   datasource:
-    url: jdbc:mysql://localhost:3306/dev?useSSL=false
+    url: jdbc:mysql://mysql.fantuan.io:3306/dev?useSSL=false
     username: root
     password: fantuan
+    driver-class-name: com.mysql.jdbc.Driver
     initialize: false
+    # 连接池配置信息
+    # 初始化大小，最小，最大
+    initial-size: 5
+    min-idle: 5
+    max-active: 20
+    # 获取连接等待超时时间
+    max-wait: 60000
+    # 间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    time-between-eviction-runs-millis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    min-evictable-idle-time-millis: 30000
+    validation-query: SELECT 1
+    test-while-idle: true
+    test-on-borrow: false
+    testOnReturn: false
+    # 打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
   jpa:
     database: MYSQL
     show-sql: true
@@ -22,7 +43,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://discovery.fantuan.io:8761/eureka/
 ---
 spring:
   profiles: docker

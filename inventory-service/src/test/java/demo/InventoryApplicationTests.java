@@ -17,11 +17,11 @@ import demo.warehouse.WarehouseRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.neo4j.ogm.session.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.neo4j.config.Neo4jConfiguration;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -60,12 +60,12 @@ public class InventoryApplicationTests {
     private InventoryRepository inventoryRepository;
 
     @Autowired
-    private Neo4jConfiguration neo4jConfiguration;
+    private SessionFactory sessionFactory;
 
     @Before
     public void setup() {
         try {
-            neo4jConfiguration.getSession().query(
+            sessionFactory.openSession().query(
                     "MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n, r;", new HashMap<>())
                     .queryResults();
         } catch (Exception e) {

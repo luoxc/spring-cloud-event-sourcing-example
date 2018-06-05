@@ -14,9 +14,9 @@ import demo.shipment.ShipmentRepository;
 import demo.shipment.ShipmentStatus;
 import demo.warehouse.Warehouse;
 import demo.warehouse.WarehouseRepository;
+import org.neo4j.ogm.session.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
-import org.springframework.data.neo4j.config.Neo4jConfiguration;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -33,25 +33,25 @@ public class DatabaseInitializer {
     private AddressRepository addressRepository;
     private CatalogRepository catalogRepository;
     private InventoryRepository inventoryRepository;
-    private Neo4jConfiguration neo4jConfiguration;
+    private SessionFactory sessionFactory;
 
     @Autowired
     public DatabaseInitializer(ProductRepository productRepository, ShipmentRepository shipmentRepository,
                                WarehouseRepository warehouseRepository, AddressRepository addressRepository,
                                CatalogRepository catalogRepository, InventoryRepository inventoryRepository,
-                               Neo4jConfiguration neo4jConfiguration) {
+                               SessionFactory sessionFactory) {
         this.productRepository = productRepository;
         this.shipmentRepository = shipmentRepository;
         this.warehouseRepository = warehouseRepository;
         this.addressRepository = addressRepository;
         this.catalogRepository = catalogRepository;
         this.inventoryRepository = inventoryRepository;
-        this.neo4jConfiguration = neo4jConfiguration;
+        this.sessionFactory = sessionFactory;
     }
 
     public void populate() throws Exception {
 
-        neo4jConfiguration.getSession().query(
+        sessionFactory.openSession().query(
                 "MATCH (n) OPTIONAL MATCH (n)-[r]-() DELETE n, r;", new HashMap<>())
                 .queryResults();
 

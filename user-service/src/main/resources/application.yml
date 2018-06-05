@@ -13,7 +13,7 @@ logging.level.org.springframework.security: DEBUG
 spring:
   profiles: development
   datasource:
-    url: jdbc:mysql://localhost:3306/dev?characterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://mysql.fantuan.io:3306/dev?characterEncoding=utf8&useSSL=false
     username: root
     password: fantuan
     initialize: false

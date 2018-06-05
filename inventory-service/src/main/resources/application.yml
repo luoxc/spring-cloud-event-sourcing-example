@@ -4,7 +4,7 @@ spring:
   profiles: development
   data:
     neo4j:
-      uri: http://localhost:7474
+      uri: http://neo4j.fantuan.io:7474
       username: neo4j
       password: fantuan
 eureka:
@@ -14,7 +14,7 @@ eureka:
     registerWithEureka: true
     fetchRegistry: true
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://discovery.fantuan.io:8761/eureka/
 ---
 spring:
   profiles: docker
