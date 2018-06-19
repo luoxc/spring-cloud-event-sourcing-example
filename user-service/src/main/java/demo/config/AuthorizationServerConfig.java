@@ -1,5 +1,6 @@
 package demo.config;
 
+import demo.JpaUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
 import org.springframework.context.annotation.Configuration;
@@ -15,14 +16,15 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @Configuration
 public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
 
+
+    @Autowired
+    private JpaUserDetailsService jpaUserDetailsService;
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        OAuth2RestTemplate b;
-        AuthenticationScheme s;
-        UserInfoTokenServices a;
-        auth
-                .inMemoryAuthentication()
+        auth.inMemoryAuthentication()
                 .withUser("user").password("password").roles("USER");
+        auth.userDetailsService(jpaUserDetailsService);
     }
 
     @Override
@@ -59,5 +61,7 @@ public class AuthorizationServerConfig extends WebSecurityConfigurerAdapter {
                     // 允许的授权范围
                     .scopes("openid");
         }
+
     }
+
 }
